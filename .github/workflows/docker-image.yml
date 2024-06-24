@@ -1,4 +1,4 @@
-name: Docker Image build
+name: Docker Image CI
 
 on:
   push:
@@ -9,17 +9,11 @@ on:
 jobs:
 
   build:
-    name: Build Docker image and push to repositories
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: antonyanlinux/myapp:latest
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
           
